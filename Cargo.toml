@@ -1,0 +1,12 @@
+[package]
+name = "matuv"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.94"
+structopt = "0.3.26"
+tokio = { version = "1.0.0", features = ["rt", "rt-multi-thread", "macros"] }
+
+[profile.release]
+opt-level = 3
