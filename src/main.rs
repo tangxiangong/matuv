@@ -1,6 +1,8 @@
 use std::fs::exists;
 use std::process::Command;
 use anyhow::{Context, Result};
+use dialoguer::Confirm;
+use dialoguer::theme::ColorfulTheme;
 use structopt::StructOpt;
 use matuv::{make_ci, make_py_toml, make_rs_file, make_rs_toml, Cli};
 
@@ -10,9 +12,21 @@ async fn main() -> Result<()> {
     let name = cli.arg();
     let is_already_exist = exists(name)?;
     if is_already_exist {
+        if Confirm::with_theme(&ColorfulTheme::default())
+            .with_prompt(
+                format!("The dictionary {} will be removed as it is already exist, \
+             do you want to continue?", name))
+            .default(true)
+            .show_default(true)
+            .wait_for_newline(true)
+            .interact()? {
         println!("The dictionary is already exist, deleting...!");
         let _ = Command::new("rm").arg("-rf").arg(name).output()
             .with_context(|| format!("could not delete {}", name))?;
+        } else {
+            println!("nevermind then :(");
+            return Ok(())
+        }
     }
     // let _ = Command::new("conda").arg("activate").output()?;
     let _ = Command::new("uv").arg("init").arg(name).output()
