@@ -1,7 +1,7 @@
 pub mod workflow;
 
 use std::path::PathBuf;
-use structopt::StructOpt;
+use clap::Parser;
 pub use workflow::*;
 
 pub mod toml;
@@ -10,9 +10,9 @@ pub use toml::*;
 pub mod rs_file;
 pub use rs_file::*;
 
-#[derive(StructOpt)]
+#[derive(Parser)]
 pub struct Cli {
-    #[structopt(parse(from_os_str))]
+    #[clap(value_parser, value_name="PROJECT")]
     project: PathBuf,
 }
 

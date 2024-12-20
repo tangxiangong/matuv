@@ -1,14 +1,14 @@
 use std::fs::exists;
 use std::process::Command;
 use anyhow::{Context, Result};
+use clap::Parser;
 use dialoguer::Confirm;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 use matuv::{make_ci, make_py_toml, make_rs_file, make_rs_toml, Cli};
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let cli = Cli::from_args();
+    let cli = Cli::parse();
     let name = cli.arg();
     let is_already_exist = exists(name)?;
     if is_already_exist {
