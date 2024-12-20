@@ -2,6 +2,7 @@
 name = "matuv"
 version = "0.1.0"
 edition = "2021"
+description = "创建 uv 和 maturin 的混合项目模板"
 
 [dependencies]
 anyhow = "1.0.94"
