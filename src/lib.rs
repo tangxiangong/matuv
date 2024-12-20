@@ -13,9 +13,12 @@ pub use rs_file::*;
 #[derive(Parser)]
 #[clap(about = "创建 uv 和 maturin 的混合项目模板")]
 pub struct Cli {
-    #[clap(value_parser, value_name = "PROJECT")]
+    #[clap(value_parser, value_name = "PROJECT PATH")]
+    /// The project path you want to take
     project: PathBuf,
-    #[clap(value_parser, value_name = "PACKAGE")]
+
+    /// The name of crate that will be used as python package
+    #[clap(value_parser, value_name = "PYTHON PACKAGE NAME", short = 'n', long= "package-name")]
     package: Option<String>,
 }
 
