@@ -1,19 +1,28 @@
-use std::fs::File;
 use anyhow::{Context, Result};
+use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::path::Path;
 use std::process::Command;
 
-pub async fn make_ci(name: &str) -> Result<()> {
-    let _ = Command::new("mkdir").current_dir(name)
-        .arg("-p").arg(".github/workflow").output()
-        .with_context(|| format!("could not make directory {}/.github/workflow", name))?;
-    let path_str = format!("{}/.github/workflow/CI.yml", name);
-    let path = Path::new(&path_str);
-    let file = File::create(path)
-        .with_context(|| format!("could not create file CI.yml in {}/.github/workflow", name))?;
+pub async fn make_ci(path_str: &str) -> Result<()> {
+    let _ = Command::new("mkdir")
+        .current_dir(path_str)
+        .arg("-p")
+        .arg(".github/workflow")
+        .output()
+        .with_context(|| format!("could not make directory {}/.github/workflow", path_str))?;
+    let ci_path_str = format!("{}/.github/workflow/CI.yml", path_str);
+    let ci_path = Path::new(&ci_path_str);
+    let file = File::create(ci_path).with_context(|| {
+        format!(
+            "could not create file CI.yml in {}/.github/workflow",
+            path_str
+        )
+    })?;
     let mut buff_writer = BufWriter::new(file);
-    buff_writer.write_all(CI).with_context(|| "could not write content into CI.yml")?;
+    buff_writer
+        .write_all(CI)
+        .with_context(|| "could not write content into CI.yml")?;
     println!("make CI.yml..... OK");
     Ok(())
 }
