@@ -5,10 +5,10 @@ edition = "2021"
 description = "创建 uv 和 maturin 的混合项目模板"
 
 [dependencies]
-anyhow = "1.0.94"
+anyhow = "1.0.95"
 clap = { version = "4.5.23", features = ["derive"] }
 dialoguer = "0.11.0"
-tokio = { version = "1.0.0", features = ["rt", "rt-multi-thread", "macros"] }
+tokio = { version = "1.0.0", features = ["macros", "rt", "rt-multi-thread"] }
 
 [profile.release]
 opt-level = 3

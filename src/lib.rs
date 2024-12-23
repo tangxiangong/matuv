@@ -10,15 +10,15 @@ pub use toml::*;
 pub mod rs_file;
 pub use rs_file::*;
 
-#[derive(Parser)]
-#[clap(author, version, about)]
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
 pub struct Cli {
-    #[clap(value_parser, value_name = "PROJECT PATH")]
     /// The project path you want to take
+    #[arg(value_parser, value_name = "PROJECT PATH")]
     project: PathBuf,
 
     /// The name of crate that will be used as python package
-    #[clap(value_name = "PYTHON PACKAGE NAME", short = 'n', long= "package-name")]
+    #[arg(value_name = "PYTHON PACKAGE NAME", short = 'n', long = "package-name")]
     package: Option<String>,
 }
 
