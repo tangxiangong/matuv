@@ -32,10 +32,11 @@ impl Cli {
     }
 
     pub fn package_name(&self) ->String {
-        if let Some(ref s) = self.package {
+        let raw_str = if let Some(ref s) = self.package {
             s.clone()
         } else {
             format!("{}_core", self.project_name())
-        }
+        };
+        raw_str.replace("-", "_")
     }
 }

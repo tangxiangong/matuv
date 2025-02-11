@@ -58,9 +58,7 @@ pub async fn make_py_toml(path_str: &str) -> Result<()> {
             Ok(output) => String::from_utf8(output.stdout).unwrap_or("".to_owned()),
             Err(_) => "".to_owned(),
         };
-    let authors = format!("authors = [
-    {{ name = {}, email = {} }}
-]", git_user_name, git_user_email);
+    let authors = format!("authors = [ {{ name = \"{}\", email = \"{}\" }} ]", git_user_name, git_user_email);
     let toml = r#"classifiers = [
 "Programming Language :: Rust",
 "Programming Language :: Python :: Implementation :: CPython",
