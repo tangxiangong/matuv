@@ -31,11 +31,11 @@ impl Cli {
         self.project.file_name().unwrap().to_str().unwrap()
     }
 
-    pub fn package_name(&self) -> &str {
+    pub fn package_name(&self) ->String {
         if let Some(ref s) = self.package {
-            s.as_str()
+            s.clone()
         } else {
-            self.project_name()
+            format!("{}_core", self.project_name())
         }
     }
 }

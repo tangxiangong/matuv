@@ -51,8 +51,8 @@ async fn main() -> Result<()> {
         .with_context(|| "could not add maturin using uv")?;
     println!("add maturin..... OK");
     make_ci(path_str).await?;
-    make_rs_toml(path_str, package_name).await?;
-    make_rs_file(path_str, package_name).await?;
+    make_rs_toml(path_str, &package_name).await?;
+    make_rs_file(path_str, &package_name).await?;
     make_py_toml(path_str).await?;
     println!("All DONE!");
     Ok(())
